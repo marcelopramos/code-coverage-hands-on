@@ -1,5 +1,9 @@
 # 🧪 Hands-on Code Coverage in Javascript and Clojure
 
+<div align="center">
+  <img src="code-coverage-algorithm.jpg" alt="Code Coverage Algorithm" height="300">
+</div>
+
 Modern code coverage tools assess the coverage of statements, branches and functions, metrics more precise than number of lines, traversing the AST to instrument the code.
 
 This repository contains two toy models - for Javascript and Clojure - to understand how code coverage libraries such as [IstanbulJS](https://github.com/istanbuljs/istanbuljs) and [Cloverage](https://github.com/cloverage/cloverage) do that.
@@ -9,7 +13,7 @@ The idea of the algorithm is the same in both languages:
 1. 📖 Read the code
 2. 🌳 Generate an AST
 3. 🔍 Traverse the AST instrumenting statements
-4. ⚙️ Generate the instrumented code
+4. ⚙️ Generate the instrumented add the code
 5. 🧪 Run tests
 6. 📊 Generate a report
 
