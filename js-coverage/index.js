@@ -6,15 +6,16 @@ const fs = require('fs');
 global.totalBranches = 0;
 global.totalFunctions = 0;
 
-global.branchesExecuted = 0;
-global.functionsExecuted = 0;
+global.branchesExecuted = [];
+global.functionsExecuted = [];
 
-function addBranchIncrement() {
-  return babel.parse('global.branchesExecuted++;', { sourceType: 'script' }).program.body[0];
+function addBranchIncrement(branchId) {
+  const node = babel.parse(`if (!global.branchesExecuted.includes(${branchId})) global.branchesExecuted.push(${branchId});`, { sourceType: 'script' }).program.body[0];
+  return node;
 }
 
-function addFunctionIncrement() {
-  return babel.parse('global.functionsExecuted++;', { sourceType: 'script' }).program.body[0];
+function addFunctionIncrement(functionId) {
+  return babel.parse(`if (!global.functionsExecuted.includes('${functionId}')) global.functionsExecuted.push('${functionId}');`, { sourceType: 'script' }).program.body[0];
 }
 
 const code = fs.readFileSync('code.js', 'utf8');
@@ -30,15 +31,19 @@ let ast;
 const visitor = {
   FunctionDeclaration(path) {
     global.totalFunctions++;
-    path.node.body.body.unshift(addFunctionIncrement());
+    path.node.body.body.unshift(addFunctionIncrement(path.node.id.name));
   },
   IfStatement(path) {
     console.log(path.node);
     /* 
-     * TODO 2: Implement the instrumentation for IfStatement
-     * Add the addBranchIncrement subtree to the body of the branches
-     * Check the printed node - where's the then node? And the else?
-     */
+    * TODO 2: Implement the instrumentation for IfStatement
+    * Add the addBranchIncrement subtree to the body of the branches
+    * 
+    * Check the printed node - where's the then node? And the else?
+    * 
+    * Note that the instrumentation function contains an IfStatement,
+    * so its branches will also be instrumented. How can we ignore it?
+    */
   },
 };
 
