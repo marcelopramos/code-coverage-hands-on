@@ -1,6 +1,7 @@
 .clj-kondo/
 .lsp/
 clojure-coverage/.cpcache/
+clojure-coverage/instrumented-code.clj
 js-coverage/node_modules/
 js-coverage/instrumented-code.js
 js-coverage/ast.json
