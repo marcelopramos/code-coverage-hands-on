@@ -30,3 +30,12 @@ To do "compiler" operations, such as generate an AST given a code, we use [Babel
 - `parse`: Literally the parser of a front-end compiler (Babel is a compiler indeed), so it returns an AST given a Javascript code.
 - `traverse` : We can traverse through the AST and pass a visitor function, to apply the right treatment for each type of node.
 - `generate`: generate the code given an AST.
+
+## 🟪 Clojure
+
+For Clojure, the implementation is almost complete, except it check the cover for branches only. If you want to implement it for functions, check the [tools.analyzer.jvm AST Quickref](https://clojure.github.io/tools.analyzer.jvm/spec/quickref.html) to understand the nodes that compose a function declaration.
+
+Here, to do AST operations we use [tools.analyzer](https://github.com/clojure/tools.analyzer) and
+ [tools.analyzer.jvm](https://github.com/clojure/tools.analyzer.jvm).
+
+There are some particularities in the implementation in comparison with JS - to store the counter state, we need to use atoms. Moreover, we can make use of the set data structure (and don't worry with repeated values).
